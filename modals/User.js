@@ -1,14 +1,40 @@
-const mongoose=require('mongoose');
-const Schemas=mongoose.Schema;
-const UserSchema=new Schemas({
-    Name:{
+
+const mongoose = require('mongoose');
+///const bcryptjs=require('bcryptjs');
+
+const UsersSchema = new mongoose.Schema({
+    name : {
         type:String,
         required:true,
-        unique:true,
+        unique:true
     },
-    
-    
-})
-const User=mongoose.model('User',UserSchema);
+    password:{
+        required:true,
+        type:String
+    }
 
-module.exports=User;
+   
+});
+
+
+// UsersSchema.method.comparePassword = function (password) {
+//     const user = this;
+//     return bcryptjs.compareSync(password, user.password)
+// }
+
+// UsersSchema.pre("save",function(next){
+//     //user milega this main jo register ho raha hai
+//     const user=this;
+//     const salt=bcryptjs.genSaltSync(10);
+//     const hash=bcryptjs.hashSync(user.password,salt);
+//     user.password=hash;
+//     console.log("userpassword======>",user.password)
+//     next();
+
+// })
+
+
+
+//hook thet will run before save methoh
+const Users = mongoose.model('Users', UsersSchema);
+module.exports = Users;
